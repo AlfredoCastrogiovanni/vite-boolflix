@@ -11,7 +11,7 @@
         }
     },
     methods: {
-        getMedia(query) {
+        getMovie(query) {
             axios.get('https://api.themoviedb.org/3/search/movie', {
                 params: {
                 api_key: '5b642de1640631e7141e3df914a0816c',
@@ -21,7 +21,23 @@
             })
             .then( response => {
                 console.log(response);
-                this.store.mediaList = response.data.results;
+                this.store.movieList = response.data.results;
+            })
+            .catch(function (error) {
+                console.log(error);
+            }); 
+        },
+        getTv(query) {
+            axios.get('https://api.themoviedb.org/3/search/tv', {
+                params: {
+                api_key: '5b642de1640631e7141e3df914a0816c',
+                query,
+                language: 'it-IT'
+                }
+            })
+            .then( response => {
+                console.log(response);
+                this.store.tvList = response.data.results;
                 this.query = "";
             })
             .catch(function (error) {
@@ -37,8 +53,8 @@
         <div class="container-fluid">
             <a class="navbar-brand text-danger fw-bold fs-2">BoolFlix</a>
             <div class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="query">
-                <button class="btn btn-danger" @click="getMedia(query)">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="query" @keydown.enter="getMovie(query), getTv(query)">
+                <button class="btn btn-danger" @click="getMovie(query), getTv(query)">Search</button>
             </div>
         </div>
     </nav>

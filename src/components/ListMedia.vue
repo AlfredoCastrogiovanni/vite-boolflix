@@ -1,5 +1,6 @@
 <script>
-    import SingleMedia from './SingleMedia.vue';
+    import SingleMovie from './SingleMovie.vue';
+    import SingleTv from './SingleTv.vue';
     import { store } from '../js/store';
 
     export default {
@@ -10,7 +11,8 @@
         }
     },
     components: {
-        SingleMedia
+        SingleMovie,
+        SingleTv
     }
     }
 </script>
@@ -18,7 +20,8 @@
 <template>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <SingleMedia v-for="media in store.mediaList" :media="media"/>
+            <SingleMovie v-for="movie in store.movieList" :movie="movie"/>
+            <SingleTv v-for="tv in store.tvList" :tv="tv"/>
         </div>
     </div>
 </template>

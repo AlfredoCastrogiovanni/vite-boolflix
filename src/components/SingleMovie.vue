@@ -2,12 +2,7 @@
     import LangFlag from '../../node_modules/vue-lang-code-flags'
 
     export default {
-    name: "SingleMedia",
-    data() {
-        return {
-            
-        }
-    },
+    name: "SingleMovie",
     methods: {
         getStars(vote) {
             let stars = ""
@@ -26,7 +21,7 @@
         LangFlag
     },
     props: {
-        media: {
+        movie: {
             type: Object,
             required: true
         }
@@ -36,14 +31,14 @@
 
 <template>
     <div class="card col-2 mb-3 me-3">
-        <img :src="(media.backdrop_path != null) ? `http://image.tmdb.org/t/p/w500/${media.backdrop_path}` : '/placeholder.jpg' " class="card-img-top mt-2" alt="...">
+        <img :src="(movie.poster_path != null) ? `http://image.tmdb.org/t/p/w342/${movie.poster_path}` : '/placeholder.jpg' " class="card-img-top mt-2" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ media.title }}</h5>
+            <h5 class="card-title">{{ movie.title }}</h5>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Titolo originale: {{ media.original_title }} </li>
-            <li class="list-group-item">Lingua: <lang-flag :iso="media.original_language"/> </li>
-            <li class="list-group-item">Voto: {{ getStars(media.vote_average) }} </li>
+            <li class="list-group-item">Titolo originale: {{ movie.original_title }} </li>
+            <li class="list-group-item">Lingua: <lang-flag :iso="movie.original_language"/> </li>
+            <li class="list-group-item">Voto: {{ getStars(movie.vote_average) }} </li>
         </ul>
     </div>
 </template>
