@@ -10,7 +10,9 @@
 </script>
 
 <template>
-    <ListMedia/>
+    <main class="mb-5">
+        <ListMedia/>
+    </main>
 </template>
 
 <style lang="scss" scoped>

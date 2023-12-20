@@ -49,9 +49,9 @@
 </script>
 
 <template>
-    <nav class="navbar bg-body-tertiary mb-4">
+    <nav class="navbar bg-body-tertiary mb-4" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand text-danger fw-bold fs-2">BoolFlix</a>
+            <a class="navbar-brand text-danger fw-bold fs-2 text-uppercase">BoolFlix</a>
             <div class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="query" @keydown.enter="getMovie(query), getTv(query)">
                 <button class="btn btn-danger" @click="getMovie(query), getTv(query)">Search</button>
