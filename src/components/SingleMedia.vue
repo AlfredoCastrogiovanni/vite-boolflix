@@ -8,6 +8,20 @@
             
         }
     },
+    methods: {
+        getStars(vote) {
+            let stars = ""
+            const starNumber = parseInt(vote / 2);
+            for(let i=0; i < starNumber; i++) {
+                stars += "★";
+            }
+            for(let i=0; i < 5 - starNumber; i++) {
+                stars += "☆";
+            }
+            return stars;
+
+        }
+    },
     components: {
         LangFlag
     },
@@ -29,7 +43,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Titolo originale: {{ media.original_title }} </li>
             <li class="list-group-item">Lingua: <lang-flag :iso="media.original_language"/> </li>
-            <li class="list-group-item">Voto: {{ media.vote_average }} </li>
+            <li class="list-group-item">Voto: {{ getStars(media.vote_average) }} </li>
         </ul>
     </div>
 </template>
