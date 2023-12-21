@@ -1,8 +1,14 @@
 <script>
-    import LangFlag from '../../node_modules/vue-lang-code-flags'
+    import LangFlag from '../../node_modules/vue-lang-code-flags';
+    import axios from 'axios';
 
     export default {
     name: "SingleMovie",
+    data() {
+        return {
+            currentMovie: []
+        }
+    },
     methods: {
         getStars(vote) {
             let stars = ""
@@ -14,7 +20,22 @@
                 stars += "☆";
             }
             return stars;
-
+        },
+        getDetails(id) {
+            axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+                params: {
+                api_key: '5b642de1640631e7141e3df914a0816c',
+                language: 'it-IT',
+                append_to_response: 'credits'
+                }
+            })
+            .then( response => {
+                console.log(response);
+                this.currentMovie = response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            }); 
         }
     },
     components: {
@@ -31,7 +52,7 @@
 
 <template>
     <article class="col-12 col-md-6 col-lg-4 col-xxl-2 mb-3 me-3 my_card p-0">
-        <div class="my_imgWrapper" data-bs-toggle="modal" :data-bs-target="`#staticBackdrop${movie.id}`">
+        <div class="my_imgWrapper" data-bs-toggle="modal" :data-bs-target="`#staticBackdrop${movie.id}`" @mouseup="getDetails(movie.id)">
             <img :src="(movie.poster_path != null) ? `http://image.tmdb.org/t/p/w342/${movie.poster_path}` : '/placeholder.jpg' " alt="...">
         </div>
     
@@ -60,6 +81,23 @@
                         <div class="ms-2 me-auto">
                         <div class="fw-bold text-danger">Voto</div>
                         {{ getStars(movie.vote_average) }}
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" v-if="currentMovie != 0">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold text-danger">Cast</div>
+                        <ol class="ps-3">
+                            <li v-for="i in 5">{{ currentMovie.credits.cast[i].name }}</li>
+                        </ol>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start" v-if="currentMovie != 0">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold text-danger">Genres</div>
+                        <ol class="ps-3">
+                            <li v-for="genre in currentMovie.genres">{{ genre.name }}</li>
+                        </ol>
                         </div>
                     </li>
                 </ul>
