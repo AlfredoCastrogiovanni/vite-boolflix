@@ -20,8 +20,9 @@
                 }
             })
             .then( response => {
-                console.log(response);
-                this.store.movieList = response.data.results;
+                response.data.results.forEach(element => {
+                    this.store.mediaList.push(element)
+                });
             })
             .catch(function (error) {
                 console.log(error);
@@ -36,8 +37,9 @@
                 }
             })
             .then( response => {
-                console.log(response);
-                this.store.tvList = response.data.results;
+                response.data.results.forEach(element => {
+                    this.store.mediaList.push(element)
+                });
                 this.query = "";
             })
             .catch(function (error) {
