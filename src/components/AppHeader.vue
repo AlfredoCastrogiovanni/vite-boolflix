@@ -90,9 +90,13 @@
                 }
             })
             .then( response => {
-                response.data.results.forEach(element => {
-                    this.store.mediaList.push(element)
-                });
+                if(this.store.mediaList.length <= 0) {
+                    response.data.results.forEach(element => {
+                        this.store.mediaList.push(element)
+                    });
+                } else {
+                    this.store.mediaList = response.data.results;
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -162,7 +166,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#" @click="this.trendingMovie(), this.trendingTv()">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
