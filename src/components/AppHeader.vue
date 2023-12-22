@@ -82,6 +82,38 @@
                 console.log(error);
             }); 
         },
+        trendingMovie() {
+            axios.get('https://api.themoviedb.org/3/trending/movie/day', {
+                params: {
+                api_key: '5b642de1640631e7141e3df914a0816c',
+                language: 'it-IT',
+                }
+            })
+            .then( response => {
+                response.data.results.forEach(element => {
+                    this.store.mediaList.push(element)
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            }); 
+        },
+        trendingTv() {
+            axios.get('https://api.themoviedb.org/3/trending/tv/day', {
+                params: {
+                api_key: '5b642de1640631e7141e3df914a0816c',
+                language: 'it-IT',
+                }
+            })
+            .then( response => {
+                response.data.results.forEach(element => {
+                    this.store.mediaList.push(element)
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            }); 
+        },
         getMovieGenres() {
             axios.get('https://api.themoviedb.org/3/genre/movie/list', {
                 params: {
@@ -112,6 +144,8 @@
         }
     },
     created() {
+        this.trendingMovie();
+        this.trendingTv();
         this.getMovieGenres();
         this.getTvGenres();
     }
