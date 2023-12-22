@@ -22,9 +22,7 @@
                 }
             })
             .then( response => {
-                response.data.results.forEach(element => {
-                    this.store.mediaList.push(element)
-                });
+                this.store.mediaList = response.data.results;
             })
             .catch(function (error) {
                 console.log(error);
